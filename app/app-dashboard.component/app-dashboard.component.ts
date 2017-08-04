@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 
-import { isAndroid, isIOS, device, screen } from 'platform';
-import { AndroidApplication } from 'application';
-
-
+import { device } from 'platform';
+import { android } from 'application';
 
 @Component({
     moduleId: module.id,
@@ -13,6 +11,7 @@ import { AndroidApplication } from 'application';
 export class AppDashboardComponent {
 
     deviceInfo;
+    apps = [];
 
     constructor() {
         this.deviceInfo = {
@@ -21,9 +20,24 @@ export class AppDashboardComponent {
             osVersion: device.osVersion
         };
 
-        const application = new AndroidApplication();
-        const context = application.context;
-        console.log(context);
+        const context: android.content.Context = android.context;
+        const pm: android.content.pm.PackageManager = context.getPackageManager();
+        const apps: java.util.IList<android.content.pm.ApplicationInfo> = pm.getInstalledApplications(0);
+
+        const length: number = apps.size();
+
+        for(let i = 0; i < length; i++) {
+            let app = apps.get(i);
+            this.apps.push(pm.getApplicationLabel(app));
+        }
+
+        /*const launcher: android.content.pm.LauncherApps = context.getSystemService(context.getClass().LAUNCHER_APPS_SERVICE);
+        console.log(context.LAUNCHER_APPS_SERVICE);*/
+
+    }
+
+    onAppTap(event) {
+        console.log(event);
     }
 
 }

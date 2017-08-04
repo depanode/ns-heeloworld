@@ -3,3 +3,11 @@
     <Label text="{{deviceInfo.model}}"></Label>
     <Label text="{{deviceInfo.os}}: {{deviceInfo.osVersion}}"></Label>
 </StackLayout>
+
+<ListView [items]="apps" (itemTap)="onAppTap($event)">
+    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+        <StackLayout [class.odd]="odd" [class.even]="even">
+            <Label text='{{i + 1}}: {{item}}'></Label>
+        </StackLayout>
+    </ng-template>
+</ListView>
