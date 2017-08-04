@@ -16,7 +16,7 @@ button {
 }
 
 .sideStackLayout {
-    background-color: gray;
+    background-color: white;
 }
 
 .sideTitleStackLayout {
@@ -29,7 +29,7 @@ button {
     padding: 10;
 }
 
-.sideLightGrayLabel {
+.sideLabel.active {
     background-color: lightgray;
 }
 
